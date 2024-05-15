@@ -1,0 +1,156 @@
+{% extends 'navbar.html' %}
+
+{% block head %}
+    <title>Inventory</title> 
+    <link rel="stylesheet" href="{{url_for('static',filename='inventory.css')}}">
+
+{% endblock  %}
+
+{% block body %}
+    <div id="floatingInfo" class="floatinginfo">
+        Logged in as {{user}}!
+    </div>
+    
+    <!-- <div class="top-layout">
+        {% for i in range(7) %}
+        <div class="info-div">
+            <div class="flex-items-col">
+                <p class="qty-value">
+                    150
+                    <span class="qty-name">
+                        products
+                    </span>
+                    <span class="more-info">
+                        Summary &rarr;
+                    </span>
+                </p>
+                
+            </div>
+        </div>
+        {% endfor %}
+
+    </div> -->
+
+    <hr>
+    
+    <div class="middle-layout">
+
+        <div class="prod-summary-left">
+            <h2>Products info</h2>  
+        <hr style="margin: 10px 0;">
+
+            <div class="column-left" >
+                <p>Total products</p>
+                <p>Low Stock</p>
+                <p>Categories</p>
+                <p>Out of Stock</p>
+                <p>Suppliers</p>
+            </div>
+                <div class="column-right" >
+                    {% if products_info_div %}
+                        <p>{{products_info_div[2]}}</p>
+                        <p>{{products_info_div[0]}}</p>
+                        <p>{{products_info_div[1]}}</p>
+                        <p>{{products_info_div[3]}}</p>
+                        <p>{{products_info_div[4]}}</p>
+                    {% endif %}
+                </div>
+                
+        </div>
+
+        <div class="most-stocked-right">
+            <h2>Low Stocked</h2>
+            <hr style="margin: 10px 0;">
+            <div class="most-stocked-right-inside">
+
+                {% if Low_stock_info %}
+                    {% for lowinfo in Low_stock_info %}
+                    <div class="product-container" id="{{lowinfo[3]}}">
+                        <img src="data:image/png;base64,{{ lowinfo[0] }}" alt="product image" width="60px" style="min-width: 50%;height: 80px;">
+                        <p class="small-prod-info">
+                            {{lowinfo[1]}}
+                        </p>
+                        <p class="big-price-font">{{lowinfo[2]}} <span class="small-prod-info">Pcs</span></p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="width: 100%; display: flex;justify-content: center;align-items: center;">
+                        <p style="font-size: 1.5rem;">No Products to Display</p>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-layout">
+        <div class="total-prod-left">
+
+            <div class="summary-options">
+                <h3>Summary</h3>
+                <form action="/showinfo">
+                    <select name="date" id="show_info">
+                      <option value="this_month">This Month</option>
+                      <option value="previous_month">Previous Month</option>
+                      <option value="six_month">6 Month</option>
+                      <option value="this_year">This Year</option>
+                    </select>
+                  </form>
+            </div>
+            <hr style="margin: 10px 0;">
+            <div style="display: flex;flex-direction: column;;flex-wrap: wrap;width: 90%;margin: 0 auto;">
+                <div class="product-container" style="width: 100%;border: 0;margin: 10px 0;">
+                    <p class="small-prod-info">
+                        Total Invoices
+                    </p>
+                    <p class="big-price-font">0 <span class="small-prod-info">Pdf</span></p>
+                </div>
+                <div class="product-container" style="width: 100%;border: 0;margin: 10px 0;">
+                    <p class="small-prod-info">
+                        Total Spend
+                    </p>
+                    <p class="big-price-font">{{Total_spend[0]}}<span class="small-prod-info">Rs.</span></p>
+                </div>
+            </div>            
+            
+        </div>
+
+        <div class="latest-added-right">
+            <table class="product_list" style="width: 100%;margin: 0;">
+                {% if Latest_added %}
+                <tr class="table_heading">
+                    <th>Prod Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Category</th>
+                    <th>Suppiler</th>
+                    <th>Date</th>
+                </tr>
+                    {% for LatestRow in Latest_added %}
+                    <tr class="table_info">
+                        <td>{{LatestRow[1]}}</td>
+                        <td>{{LatestRow[2]}}</td>
+                        <td>{{LatestRow[3]}}</td>
+                        <td>{{LatestRow[4]}}</td>
+                        <td>{{LatestRow[5]}}</td>
+                        <td>{{LatestRow[8]}}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <p style="font-size: 1.5rem;text-align: center;">Nothing to show</p>
+                    <br>
+                    <p style="font-size: 1.5rem;text-align: center;">Add Products </p>
+                {% endif %}
+            </table>
+
+        </div>
+    </div> 
+
+    <script>
+        error = document.getElementById("floatingInfo");
+        error.style.display = "flex";
+        setTimeout(() => {
+            error.style.display = "none";   
+        }, 3000);
+    </script>
+{% endblock body %}

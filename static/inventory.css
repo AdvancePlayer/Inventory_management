@@ -1,0 +1,225 @@
+#floatingInfo{
+    padding: 1.2rem;
+    box-shadow: 4px 4px 20px black;
+    color: black;
+    background-color: whitesmoke;
+    border: 0;
+    border-radius: 15px;
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    top: 80px;
+    margin: 0 0 0 -25%
+}
+
+/* *************************** */
+
+.top-layout{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    background-color: white;
+}
+.info-div{
+    width: 12%;
+    padding: 15px 0;
+    margin: 10px auto;
+    border: 1px solid rgb(139, 139, 139);
+    border-radius: 15px;
+}
+.flex-items-col{
+    width: 100%;
+
+}
+.qty-value{
+    font-size: 2rem;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.qty-name{
+    font-size: 0.7rem;
+    color: black;
+}
+.more-info{
+    font-size: 0.6rem;
+    width: 90%;
+    padding: 0.3rem;
+    margin: 0 auto;
+}
+
+/* *************************** */
+
+.middle-layout{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin: 25px 0;
+}
+
+
+.prod-summary-left{
+    border: 1px solid rgb(139, 139, 139);
+    width: 40%;
+    padding: 30px;
+    border-radius: 15px;
+}
+.prod-summary-left h2{
+    margin: 0;
+}
+.column-left {
+    float: left;
+    width: 70%;
+}
+.column-right {
+    float: left;
+    width: 30%;
+}
+
+.prod-summary-left:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.most-stocked-right{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid rgb(139, 139, 139);
+    border-radius: 15px;
+}
+.most-stocked-right-inside{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.product-container{
+    width: 150px;
+    margin: 0 5px;
+    padding: 0 5px;
+    text-align: center;
+}
+.big-price-font{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+.small-prod-info{
+    font-size: 0.8rem;
+}
+.product-container:hover{
+    border-right: 1px solid rgb(139, 139, 139);
+    border-left: 1px solid rgb(139, 139, 139);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+/* ****************** */
+
+.bottom-layout{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+.total-prod-left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    border: 1px solid rgb(139, 139, 139);
+    border-radius: 15px;
+
+}
+.latest-added-right{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 80%;
+    border: 1px solid rgb(139, 139, 139);
+    border-radius: 15px;
+    padding: 10px 5px;
+}
+
+.product_list,.table_info,td{
+    border-collapse: collapse;
+    text-align: center;
+}
+.table {
+    overflow:hidden; 
+    table-layout:fixed;
+}
+.table_heading{
+    border-bottom: 4px ridge;
+    padding: 5px 0;
+
+}
+.summary-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-top: 10px;
+}
+
+#show_info{
+    padding: 5px 2px;
+    border: 1px solid rgb(139, 139, 139);
+}
+
+@media screen and (max-width:768px) {
+    .top-layout{
+        display: none;
+    }
+    .prod-summary-left{
+        width: 70%;
+    }
+    .middle-layout{
+        flex-direction: column;
+    }
+    .most-stocked-right{
+        width: 70%;
+        justify-content: center;
+    }
+    .most-stocked-right-inside{
+        flex-direction: row;
+        width: 90%;
+        justify-content: flex-end;        
+    }
+    .bottom-layout{
+        flex-direction: column-reverse;
+    }
+    .total-prod-left{
+        width: 50%;
+    }
+    .latest-added-right{
+        width: 90%;
+    }
+}
+
+/* @media screen and (max-width:580px) {
+    .most-stocked-right-inside{
+        flex-direction: row;
+        width: 90%;
+        justify-content: center;        
+    }
+    
+} */

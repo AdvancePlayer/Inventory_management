@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='base.css')}}">
+    <title>Sign in</title>
+</head>
+<body>
+    <form class="login-container" action="/" method="POST">
+        <h1 class="heading-main">Sign in</h1><br>
+        <!-- <hr> -->
+        
+        <!-- <div class="container"> -->
+            {% if error %}
+                <p style="color: red;padding-bottom: 15px;" id="errorid">{{ error }}</p>
+            {% endif %}
+            <input type="email" placeholder="Enter Email..." name="email" id="email" required>
+        
+            <input type="password" placeholder="Enter Password..." name="password" id="psw" required>
+        
+            <!-- <hr> -->
+            <button type="submit" class="registerbtn">Login</button>
+        </div>
+        
+        <div class="container signin">
+            <p>New user?<a href="/signup" style="color: #0000cd ;">Create Account</a></p>
+        </div>
+    </form>
+    <script>
+        error = document.getElementById("errorid");
+        error.style.display = "block";
+        setTimeout(() => {
+            error.style.display = "none";   
+        }, 3000);
+    </script>
+</body>
+</html>

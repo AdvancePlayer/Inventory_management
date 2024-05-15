@@ -1,0 +1,262 @@
+{% include 'navbar.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{url_for('static',filename='product.css')}}">
+    <title>All Products</title>
+{% endblock head %}
+
+{% block body %}
+    {% if prodResp %}
+    <div id="floatingInfo">
+        {{prodResp[0]}}
+    </div>
+    {% endif %}
+
+    <div id="addProdDiv">
+        <h3 style="margin-top: 20px;">New Product Info</h3>
+        <form class="addprod" action="/products" method="POST" enctype="multipart/form-data">
+            <div class="item-add-pair">
+                <div>
+                    <label for="product_name">Item Name</label>
+                    <br>
+                    <input type="text" id="product_name" name="product_name" required>
+                </div>
+
+                <div>
+                    <label for="product_id">Item SKU Id(Cannot be same)</label>
+                    <br>
+                    <input type="text" id="product_id" name="product_id" required>
+                </div>
+            </div>
+
+            <div class="item-add-pair">
+                <div>
+                    <label for="product_qty">Item QTY</label>
+                    <br>
+                    <input type="number" id="product_qty" name="product_qty" required>
+                </div>
+
+                <div>
+                    <label for="product_price">Item Price</label>
+                    <br>
+                    <input type="number" id="product_price" name="product_price" required>
+                </div>
+            </div>
+            <div class="item-add-pair">
+                <div>
+                    <label for="product_low_qty">Low stock Limit</label>
+                    <br>
+                    <input type="number" id="product_low_qty" name="product_low_qty" value="5" required>
+                </div>
+
+                <div>
+                    <label for="product_category">Category</label>
+                    <br>
+                    <input type="text" id="product_category" name="product_category" required>
+                </div>
+            </div>
+            <div class="item-add-pair">
+                <div>
+                    <label for="product_size">Item Size(L X W X H)</label>
+                    <br>
+                    <input type="text" id="product_size" name="product_size" value="-" required>
+                </div>
+
+                <div>
+                    <label for="product_weight">Item Weight(kg)</label>
+                    <br>
+                    <input type="number" id="product_weight" name="product_weight">
+                </div>
+            </div>
+            <div class="item-add-pair">
+                <div>
+                    <label for="supplier_name">Supplier Name</label>
+                    <br>
+                    <input type="text" id="supplier_name" name="supplier_name" required>
+                </div>
+
+                <div>
+                    <label for="supplier_no">Supplier Ph.No</label>
+                    <br>
+                    <input type="number" id="supplier_no" name="supplier_no" value="000" required>
+                </div>
+            </div>
+            <div class="item-add-pair">
+                <div>
+                    <label for="item_color">Avaliable colors (red,blue..)</label>
+                    <br>
+                    <input type="text" id="item_color" name="item_color" required>
+                </div>
+
+                <div>
+                    <label for="item_comments">Any Extra Info</label>
+                    <br>
+                    <input type="text" id="item_comments" name="item_comments" value="No Comments" required>
+                </div>
+            </div>
+
+            <!-- <label for="drop_image" id="drop_area">
+                <input type="file" accept="image/*" id="drop_image" hidden>
+                <div id="prod-img-view">
+                    <ion-icon name="cloud-upload-outline" style="width: 40px; height: 40px;"></ion-icon>
+                    <p>Drag and drop or click here<br>to upload an image</p>
+                    <img id="uploaded_image" src="" alt="Uploaded Image">
+                </div>
+            </label>  -->
+
+            <label for="drop_image" id="drop_area">
+                <input type="file" accept="image/*" id="drop_image" name="drop_image" >
+            </label>
+
+            <div class="item-add-pair" style="margin-top: 50px;">
+                <button type="submit" id="newProdSubmit" class="prod-sub-btn">Submit</button>
+                <button type="button" onclick="cancelAddProd()" class="prod-cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between; width: 100%;">
+            <h1>Your Inventory</h1>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                <button class="import-export-btn" type="button" >Import</button>
+                <button class="import-export-btn" type="button" >Export</button>
+            </div>
+        </div>
+        <!-- filter options and search bar here -->
+        
+    </div>
+    <div class="product-body">
+        {% if prodArr %}
+        <div class="inventory-container">
+                    
+            <table class="inventory-table">
+                
+                <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between; width: 90%;margin: 5px auto;">
+                    <button class="add-item-btn" type="button" onclick="addProdInfoDiv()"><ion-icon name="pricetag-outline"></ion-icon>Add item</button>
+                    <div class="multiple-opt-btn">
+                        <button class="edit-btn"><ion-icon name="pencil-outline"></ion-icon> Edit</button><button class="delete-btn"><ion-icon name="trash-outline"></ion-icon> Delete</button>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap: 20px;">
+                        <!-- <p>oredr</p> -->
+                        <form action="/product/search" method="post">
+                            <input type="text" placeholder="Serach here ...">
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>Product Name</th>
+                        <th>SKU</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Suppiler</th>
+                        <th class="remove">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prodinfo in prodArr %}
+                    <tr class="selected-div">
+                        <td><input type="checkbox"></td>
+                        <td class="product-details">
+                            <img src="data:image/png;base64,{{ prodinfo[-2] }}" alt="Product img" width="60px" style="max-height: 60px;">
+                            <div class="product-info">
+                                <p class="product-name">{{prodinfo[1]}}</p>
+                                <p class="product-category">{{prodinfo[5]}}</p>
+                            </div>
+                        </td>
+                        <td>{{prodinfo[0]}}</td>
+                        <td>{{prodinfo[3]}}</td>
+                        <td>{{prodinfo[2]}}</td>
+                        <td>{{prodinfo[9]}}</td>
+                        <td class="remove"><button class="edit-btn"><ion-icon name="pencil-outline"></ion-icon> Edit</button><button class="delete-btn" onclick="sendVariableToServer('{{prodinfo[0]}}')" ><ion-icon name="trash-outline"></ion-icon> Delete</button></td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+        
+        {% else %}
+            <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;height: 80vh;gap: 30px;">
+                <div>
+                    <p style="font-size: 1.5rem;text-align: center;">No products to display</p>
+                    <br>
+                    <p style="font-size: 1.5rem;">Refresh the page if you have added and is not showing</p>
+                </div>
+                <button class="add-item-btn" type="button" onclick="addProdInfoDiv()"><ion-icon name="pricetag-outline"></ion-icon>Add item</button>
+            </div>
+        {% endif %}
+        
+    </div>
+    <script>
+        if (document.querySelector("#floatingInfo")){
+            error = document.querySelector("#floatingInfo");
+            console.log(error)
+            error.style.display = "flex";
+            setTimeout(() => {
+                error.style.display = "none";   
+            }, 3000);
+        }
+
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const editbulk = document.querySelector(".multiple-opt-btn");
+
+        if(selectAllCheckbox && checkboxes){
+            selectAllCheckbox.addEventListener('change', function () {
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = this.checked;
+            });
+            updateEditBulkVisibility();
+            });
+        }   
+        if(checkboxes){
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', updateEditBulkVisibility);
+            });
+        }
+        if(checkboxes && editbulk){
+            function updateEditBulkVisibility() {
+                const checkedCount = Array.from(checkboxes).filter((checkbox) => checkbox.checked).length;
+                if (checkedCount > 1) {
+                    editbulk.style.display = "block";
+                } else {
+                    editbulk.style.display = "none";
+                }
+            }
+        }
+        
+        const addProdInfoDiv = () =>{
+            let addProdDiv = document.getElementById("addProdDiv");
+            addProdDiv.style.display = "flex";
+        }
+        const cancelAddProd = () =>{
+            let addProdDiv = document.getElementById("addProdDiv");
+            addProdDiv.style.display = "none";
+        }
+
+        const sendVariableToServer = (ProdId) =>{
+            console.log("product id = ",ProdId)
+            $.ajax({
+                url:"/delete",
+                type:"post",
+                data:{
+                    del_product_id: ProdId
+                },
+                success: function (){
+                    console.log("product id send for deletion = ",ProdId);
+                    window.location.reload()
+                },
+                error: function (resp){
+                    console.log("product id cannot be send by ajax",ProdId);
+                    console.log("resp = ",resp);
+                }
+
+            })
+        }
+    </script>
+{% endblock body %}

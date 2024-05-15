@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+        
+    {% endblock head %}
+    <link rel="stylesheet" href="{{url_for('static',filename='base.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='navbar.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <header>
+        <div id="left">
+            <div  class="logoMenu">
+                <span id="hamburIcon" title="Hide main menu" class="material-symbols-outlined bi bi-list">
+                    menu
+                    </span>
+                    <!-- inventory heading here -->
+                </div>
+            <!-- Can add more here for middle-left navbar -->
+        </div>
+        <div id="right">
+            <!-- Can add more here for middle-right navbar -->
+            <span class="profilePicture" onclick="settings()" title="Account info">{{logo}}</span>
+        </div>
+        
+    </header>
+    <main>
+        <aside id="asideMenu">
+            <ul class="asideUl">
+                <li class="asideList"><!-- svg link here --><a href="/inventory" class="asideListSpan">Dashboard</a></li>
+                <li class="asideList"><!-- svg link here --><a href="/products" class="asideListSpan">Products</a></li>
+                <li class="asideList"><!-- svg link here --><a href="/categories" class="asideListSpan">Categories</a></li>
+                <li class="asideList asideListLeftRight"><div class="divList"><!-- svg link here --><span class="asideListSpan">Suppliers</span></li>
+                <li class="asideList asideListLeftRight"><div class="divList"><!-- svg link here --><span class="asideListSpan">Make Invoice</span></li>
+                <!-- <li class="asideList asideListLeftRight"><div class="divList">svg link here<span class="asideListSpan">asdja</span></li> -->
+            </ul>
+            
+            <ul class="asideUl asideBottom">
+                <li class="asideList asideListDevider"><!-- svg link here --><a href="/settings" class="asideListSpan">Settings</a></li>
+                <li class="asideList"><!-- svg link here --><a  href="/logout" class="asideListSpan">Logout</a></li>
+            </ul>
+        </aside>
+    </main>
+    <div class="inventory-body">
+        {% block body %}
+
+        {% endblock body %}
+    </div>
+    
+    <script>
+        
+        let hamburIcon = document.getElementById('hamburIcon');
+        let asideMenu = document.getElementById("asideMenu");
+        let menuItem = document.querySelectorAll(".asideListSpan");
+        document.addEventListener("click", (e) => {
+            if (hamburIcon.contains(e.target)) {
+                asideMenu.style.display = "block";
+            } 
+            
+            else{
+                asideMenu.style.display = "none";
+            }
+        });
+        
+        const settings=()=>{
+            console.log("b")
+        }
+    </script>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</html>

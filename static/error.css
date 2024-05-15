@@ -1,0 +1,50 @@
+#notfound {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100vh;
+}
+#notfound .notfound {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.notfound .notfound-404 {
+    height: 190px;
+}
+.notfound .notfound-404 h1 {
+    font-family: montserrat, sans-serif;
+    font-size: 146px;
+    font-weight: 700;
+    margin: 0;
+    color: #232323;
+}
+.notfound h2 {
+    font-family: montserrat, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    color: #232323;
+}
+.notfound p {
+    font-family: montserrat, sans-serif;
+    color: #787878;
+    font-weight: 300;
+}
+.notfound a {
+    font-family: montserrat, sans-serif;
+    display: inline-block;
+    padding: 12px 30px;
+    font-weight: 700;
+    background-color: #045daa;
+    color: #fff;
+    border-radius: 40px;
+    text-decoration: none;
+    /* transition: .2s all; */
+}
