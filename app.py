@@ -65,45 +65,6 @@ def Inventory():
     else:
         return redirect(url_for("LoginPage"))
 
-# @app.route("/products",methods=["GET","POST"])
-# def Products():
-#     if 'email' in session:
-#             email = session["email"]
-#             logo = email[0:2]
-#             user_id = GetUserId(email)
-#             ProductsArray = RetriveInfo(email)
-
-#             if request.method == 'POST':
-#                 product_name = request.form["product_name"]
-#                 product_id = request.form["product_id"]
-#                 product_qty = request.form["product_qty"]
-#                 product_price = request.form["product_price"]
-#                 product_low_qty = request.form["product_low_qty"]
-#                 product_category = request.form["product_category"]
-#                 product_size = request.form["product_size"]
-#                 product_weight = request.form["product_weight"]
-#                 supplier_name = request.form["supplier_name"]
-#                 supplier_no = request.form["supplier_no"]
-#                 item_color = request.form["item_color"]
-#                 item_comments = request.form["item_comments"]
-#                 drop_image = request.files["drop_image"]
-#                 image = drop_image.read()
-
-#                 prodResp = AddProd(prod_comments=item_comments,prod_color=item_color,prod_low_qty = product_low_qty,prod_size=product_size,prod_weight=product_weight,prod_id = product_id,prod_name = product_name,prod_price=product_price,prod_qty=product_qty,prod_category=product_category,supplier_name=supplier_name,supplier_no=supplier_no,prod_img=image,userid=user_id)
-
-#                 print("response in app.py for add product = \n",prodResp)
-
-#                 return render_template("product.html",user=email,logo=logo,prodArr=ProductsArray,prodResp=prodResp)
-#             else:
-#                 return render_template("product.html",user=email,logo=logo,prodArr=ProductsArray)
-#     else:
-#         return redirect(url_for("LoginPage"))
-
-
-
-
-# *************************************** new ***************************************************
-
 @app.route("/products",methods=["GET"])
 def Products():
     if 'email' in session:
@@ -140,16 +101,10 @@ def AddProducts():
 
         prodResp = AddProd(prod_comments=item_comments,prod_color=item_color,prod_low_qty = product_low_qty,prod_size=product_size,prod_weight=product_weight,prod_id = product_id,prod_name = product_name,prod_price=product_price,prod_qty=product_qty,prod_category=product_category,supplier_name=supplier_name,supplier_no=supplier_no,prod_img=image,userid=user_id)
 
-        print("response in app.py for add product = \n",prodResp)
+        # print("response in app.py for add product = \n",prodResp)
 
         return redirect(url_for("Products"))
 
-
-
-
-
-
-# *************************************** new ***************************************************
 @app.route("/delete",methods=["post"])
 def DeleteRow():
     if "email" in session:
